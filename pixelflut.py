@@ -14,6 +14,11 @@ def setPixel(x,y,r,g,b,a=255):
   else:
     send('PX %d %d %02x%02x%02x%02x\n' % (x,y,r,g,b,a))
 
+# print a rectangle from x, y to x+w, y+h
+def rect(x,y,w,h,r,g,b):
+ for i in xrange(x,x+w):
+   for j in xrange(y,y+h):
+     setPixel(i,j,r,g,b)
 
 if __name__ == '__main__':
-    setPixel(42, 42, 0, 255, 0)
+    rect(0, 0, 42, 42, 0, 255, 0)
