@@ -13,6 +13,13 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.connect((HOST, PORT))
 send = sock.send
 
+maxsize = (length, height)
+
+img = Image.open('cccknoten.png')
+img = img.convert('RGBA')
+img.thumbnail(maxsize, PIL.Image.ANTIALIAS)
+arr = np.array(img)
+
 # set a single pixel
 def setPixel(x,y,r,g,b,a=255):
   if a == 255:
@@ -28,18 +35,14 @@ def rect(x,y,w,h,r,g,b):
 
 def loop():
     while 1:
+        # rect(0, 0, 100, 100, 255, 0, 0)
         image()
 
 def image():
-    maxsize = (length, height)
-    img = Image.open('foo.png')
-    img.thumbnail(maxsize, PIL.Image.ANTIALIAS)
-    arr = np.array(img)
-
-    for i in xrange(0, length):
-        for j in xrange(0, height):
-            setPixel(i, j, arr[i][j][0], arr[i][j][1], arr[i][j][2], 255)
-
+    for i in xrange(0, img.size[0]):
+        for j in xrange(0, img.size[1]):
+            setPixel(i, j, arr[j][i][0], arr[j][i][1], arr[j][i][2], 255)
 
 if __name__ == '__main__':
+    # prepareImage()
     loop()
