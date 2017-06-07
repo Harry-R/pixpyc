@@ -1,7 +1,13 @@
 import socket
+import numpy as np
+import PIL
+from PIL import Image
 
 HOST = 'rgbmatrix'
 PORT = 9737
+
+length = 100;
+height = 100;
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.connect((HOST, PORT))
@@ -20,9 +26,20 @@ def rect(x,y,w,h,r,g,b):
    for j in xrange(y,y+h):
      setPixel(i,j,r,g,b)
 
-def imageLoop():
+def loop():
     while 1:
-        rect(0, 0, 500, 500, 0, 255, 0)
+        image()
+
+def image():
+    maxsize = (length, height)
+    img = Image.open('foo.png')
+    img.thumbnail(maxsize, PIL.Image.ANTIALIAS)
+    arr = np.array(img)
+
+    for i in xrange(0, length):
+        for j in xrange(0, height):
+            setPixel(i, j, arr[i][j][0], arr[i][j][1], arr[i][j][2], 255)
+
 
 if __name__ == '__main__':
-    imageLoop()
+    loop()
