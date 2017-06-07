@@ -1,7 +1,7 @@
 import socket
 
-HOST = 'pixelflut-server'
-PORT = 4242
+HOST = 'rgbmatrix'
+PORT = 9737
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 sock.connect((HOST, PORT))
@@ -20,5 +20,9 @@ def rect(x,y,w,h,r,g,b):
    for j in xrange(y,y+h):
      setPixel(i,j,r,g,b)
 
+def imageLoop():
+    while 1:
+        rect(0, 0, 500, 500, 0, 255, 0)
+
 if __name__ == '__main__':
-    rect(0, 0, 42, 42, 0, 255, 0)
+    imageLoop()
